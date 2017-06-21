@@ -1,0 +1,198 @@
+/*----------------------------------------
+[Master Stylesheet]
+
+Project:	HelpZone
+Version:	1.0
+Primary use:	HelpZone Template
+----------------------------------------*/
+
+/*----------------------------------------
+[Table of contents]
+
+1. Small desktop
+2. Tablet landskape
+3. Tablet portrait
+4. Phone
+----------------------------------------*/
+
+/*==============================
+	Small desktop
+==============================*/
+@media only screen and (max-width: 1199px) {
+	.home__search {
+		width: 400px;
+	}
+}
+
+/*==============================
+	Tablet landskape
+==============================*/
+@media only screen and (max-width: 991px) {
+	.desktop-navigation li {
+		margin-left: 30px;
+	}
+
+	.faq-card {
+		height: auto;
+	}
+}
+
+/*==============================
+	Tablet portrait
+============================== */
+@media only screen and (max-width: 767px) {
+	.desktop-navigation-wrap {
+		display: none;
+	}
+	.header {
+		line-height: 56px;
+	}
+	.header .logo img {
+		vertical-align: top;
+	}
+	.header .navigation-button {
+		display: inline-block;
+	}
+
+	.home {
+		padding-top: 56px;
+	}
+	.home--slider .item {
+		margin-top: -56px;
+	}
+	.home__text-wrap p {
+		margin: 0 0 20px;
+	}
+	.home__search {
+		width: 380px;
+	}
+
+	.page-title {
+		margin-top: 56px;
+	}
+	.filter {
+		height: 120px;
+	}
+	.filter__search {
+		border-bottom: 1px solid rgba(117,117,117,0.2);
+	}
+
+	.contact__form {
+		margin-top: 60px;
+	}
+	.map {
+		height: 400px;
+	}
+
+	.sidebar {
+		margin-top: 0;
+	}
+
+	.footer__copyright,
+	.footer__social-list {
+		text-align: center;
+	}
+	.footer__social-list {
+		margin-bottom: 10px;
+	}
+	.footer {
+		padding: 35px 0 20px;
+	}
+
+	.article__head {
+		margin-top: 56px;
+	}
+}
+
+/*==============================
+	Phone
+==============================*/
+@media only screen and (max-width: 639px) {
+	.section-padding-70 {
+		padding: 50px 0;
+	}
+	.section-padding-100 {
+		padding: 80px 0;
+	}
+
+	.section-title h2 {
+		font-size: 14px;
+	}
+	.section-title p {
+		font-size: 26px;
+		line-height: 26px;
+		margin-bottom: 25px;
+	}
+
+	.chat-button--fixed {
+		right: 15px;
+		bottom: 15px;
+	}
+	.chat__text-wrap {
+		padding: 0 15px;
+	}
+	.chat__message-wrap {
+		padding: 0 5px;
+	}
+	.chat__write {
+		padding: 0 15px;
+	}
+	.chat__write button {
+		right: 15px;
+	}
+	.chat__write input {
+		width: 275px;
+	}
+
+	.home__text-wrap h1 {
+		font-size: 36px;
+	}
+	.home__search {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.article__comments-list .reply {
+		padding: 0 0 0 40px;
+	}
+
+	.article__head h1 {
+		font-size: 30px;
+	}
+	.article__text h1 {
+		font-size: 30px;
+	}
+	.article__text h2 {
+		font-size: 28px;
+	}
+	.article__text blockquote {
+		font-size: 15px;
+		margin: 30px 0;
+		padding: 0 0 0 30px;
+	}
+
+	.page-title {
+		padding: 60px 0;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.chat {
+		width: 320px;
+	}
+	.chat__content {
+		top: 190px;
+	}
+	.chat__write input {
+		width: 215px;
+	}
+	.chat__text {
+		margin-bottom: 15px;
+	}
+	.chat__write {
+		bottom: 75px;
+	}
+	.chat__message-wrap {
+		bottom: 132px;
+	}
+}

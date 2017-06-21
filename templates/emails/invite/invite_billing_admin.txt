@@ -1,0 +1,12 @@
+Hello,
+
+You have been invited by {{invited_by}} to become a billing administrator for {{account}}'s Gluu licenses.
+{% if not existing %}
+Please create your administrator account here: {{invitation_link}}
+{% else %}
+Please sign in with your Gluu account to access the oxd license management dashboard: {{invitation_link}} 
+{% endif %}
+
+Thank you,
+
+Gluu

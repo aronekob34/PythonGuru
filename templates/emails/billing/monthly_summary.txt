@@ -1,0 +1,49 @@
+{% load humanize %}
+
+Hello,
+
+The monthly billing summary for your oxd license is now available.
+
+Your account will be billed automatically on {{billing_date}}.
+
+Account Name: {{account_name}}
+
+Reference ID: {{payment.invoice_id}}
+
+Total Charges: ${{payment.amount|floatformat:2 | intcomma}}
+{% if payment.credits_used %}
+
+Credits Used: ${{payment.credits_used|floatformat:2 | intcomma}}
+
+Amount Charged: ${{payment.paid_amount|floatformat:2 | intcomma}}
+{% endif %}
+
+{% if last_4 %}
+Last 4 of the billing: {{last_4}}
+{% endif %}
+
+{% if last_4 %}
+If you want to review or make changes to your payment information, log into your account: {{billing_management_link}}
+{% else %}
+We noticed that you haven't added a credit card yet. Please attach a credit card to your account to keep using your licences after your free credit has expired. {{billing_management_link}}
+{% endif %}
+
+If something is unclear or you need to dispute any charges, please reply to this email.
+
+Each time oxd is installed on a VM or server, the machine's MAC Address is recorded. If a MAC Address cannot be found a UID is generated for that machine. Active installations are counted and billed $0.33 per day.
+
+Monthly usage records:
+
+
+MAC Address or UID          Days Active          Charged
+-------------------------------------------------------------------------
+{% for mac, usage in payment.details.iteritems %}
+{{mac}}          {{usage.0}}          {{usage.1}}
+-------------------------------------------------------------------------
+{% endfor %}
+
+Total          {{record.number_licenses}}          ${{record.total_usd}}
+
+Thank you,
+
+Gluu

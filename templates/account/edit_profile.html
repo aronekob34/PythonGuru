@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+	<div class="row dashboard">
+		<div class="col-xs-12">
+			<div class="widget subscribe edit-profile">
+				<h4> Billing profile for you account </h4>
+				<h5> Account Type </h5>
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 text-right-sm">Account Type:</div>
+					<div class="col-xs-6 col-sm-8">{{user.account.account_type}}</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<form action="{% url 'account:edit-profile' %}" method="post" class="form-horizontal">
+							{% csrf_token %}
+							<div class="form-group">
+				        <label for="{{ registration_form.first_name.id_for_label }}" class="col-sm-3 control-label" style="font-weight: 400">Address</label>
+				        <div class="col-sm-9">
+				          <p style="padding-top: 5px; margin-bottom: 5px">{{user.account.get_country_display}}</p>
+				        </div>
+				      </div>
+
+							{% if not user.account.account_type == 'Individual' %}
+							<div class="form-group">
+				        <div class="row">
+				          <div class="col-sm-9 col-sm-offset-3">{{ account_form.business_name.errors }}</div>
+				        </div>
+				        <div class="col-sm-9 col-sm-offset-3">
+				          {{ account_form.business_name }}
+				        </div>
+				      </div>
+				      {% endif %}
+
+
+				      <div class="form-group">
+				        <div class="row">
+				          <div class="col-sm-9 col-sm-offset-3">{{ account_form.address_1.errors }}</div>
+				        </div>
+				        <div class="col-sm-9 col-sm-offset-3">
+				          {{ account_form.address_1 }}
+				        </div>
+				      </div>
+
+				      <div class="form-group">
+				        <div class="row">
+				          <div class="col-sm-9 col-sm-offset-3">{{ account_form.address_2.errors }}</div>
+				        </div>
+				        <div class="col-sm-9 col-sm-offset-3">
+				          {{ account_form.address_2 }}
+				        </div>
+				      </div>
+
+				      <div class="form-group">
+				        <div class="row">
+				          <div class="col-sm-9 col-sm-offset-3">{{ account_form.city.errors }}</div>
+				        </div>
+				        <div class="col-sm-9 col-sm-offset-3">
+				          {{ account_form.city }}
+				        </div>
+				      </div>
+
+							{% if user.account.country == 'US' %}
+				      <div class="form-group">
+				        <div class="row">
+				          <div class="col-sm-3"></div>
+				          <div class="col-sm-4">
+				            {{ account_form.zip_code.errors }}
+				          </div>
+				          <div class="col-sm-5">
+				            {{ account_form.state.errors }}
+				          </div>
+				        </div>
+				        <div class="col-sm-3"></div>
+				        <div class="col-sm-4">
+				          {{ account_form.zip_code }}
+				        </div>
+
+				        <div class="col-sm-5 state">
+				          {{ account_form.state }}
+				        </div>
+				      </div>
+				      {% endif %}
+
+						  <div class="form-group">
+				       <div class="col-sm-9 col-sm-offset-3">
+				        <button type="submit" class="default-button">Save </button> &emsp;
+				        <a href="{%url 'account:view-profile' %}" class="default-button btn-white">Cancel</a>
+				       </div>
+				      </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

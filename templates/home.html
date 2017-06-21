@@ -1,0 +1,582 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width">
+  <title>oxd | OpenID Connect and UMA OAuth 2.0 Client Software</title>
+  <link rel="profile" href="http://gmpg.org/xfn/11">
+  <link rel="pingback" href="https://oxd.gluu.org/xmlrpc.php">
+  <meta property="og:image" content="{% static 'home/img/gl-diamond.png' %}">
+  <link rel="image_src" href="{% static 'home/img/gl-diamond.png' %}">
+  <meta name="robots" content="noindex,follow">
+
+  <!-- All in One SEO Pack 2.3.8 by Michael Torbert of Semper Fi Web Design[313,364] -->
+  <meta name="description" itemprop="description" content="oxd makes it easier to secure applications with OpenID Connect and UMA to enable single sign-on (SSO) and access management.">
+
+  <link rel="canonical" href="https://oxd.gluu.org/">
+  <!-- /all in one seo pack -->
+
+  <link rel="stylesheet" id="mc_scrollbar_css-css" href="{% static 'home/css/jquery.mCustomScrollbar.min.css' %}" type="text/css" media="all">
+  <link rel="stylesheet" id="main-css" href="{% static 'home/css/main.css' %}" type="text/css" media="all">
+  <link rel="stylesheet" id="magnific_popup_css-css" href="{% static 'home/css/magnific-popup.css' %}" type="text/css" media="all">
+    <!--[if lt IE 9]>
+    <link rel='stylesheet' id='twentytwelve-ie-css'  href="{% static 'home/css/style.css' %}" type='text/css' media='all' />
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type='text/javascript' src="{% static 'home/js/html5.js' %}"></script>
+    <![endif]-->
+    <link rel="shortlink" href="https://oxd.gluu.org/">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atom-one-light.min.css">
+  </head>
+
+  <body class="home page page-id-2 page-template page-template-page-templates page-template-front-page page-template-page-templatesfront-page-php template-front-page single-author" cz-shortcut-listen="true">
+
+
+    <div class="main-wrapper">
+
+      <div class="header-banner-wrapper l-header">
+
+
+        <div class="fixedtop-wrapper navbar-fixed-top affix-top">
+
+
+          <header class="top-bar nav-panel">
+            <div class="top-bar-top">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <nav class="top-nav-wrapper">
+                      <ul class="top-nav">
+                        <li>
+                          <a href="https://www.gluu.org/company/contact-us/">Contact</a>
+                        </li>
+                        <li>
+                          <a href="http://support.gluu.org/">Support</a>
+                        </li>
+                        <li>
+                          <a href="/login/gluu/?next=/account/register-auth/">My Account</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="top-bar-inner">
+              <div class="hidden-xs container">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <div class="front-logo">
+                      <a href="#">
+                        <img src="{% static 'home/img/gl.png' %}" class="img-responsive green-logo">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-sm-10">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <nav class="front-nav-wrapper">
+                          <ul>
+                            <li>
+                              <a href="https://gluu.org/docs/oxd/" target="_blank">Read the docs</a>
+                            </li>
+                            <li>
+                              <a href="#pricing">Pricing</a>
+                            </li>
+                            <li class="schedule-btn">
+                              <a href="{% url 'account:register' %}">Get a license</a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="visible-xs container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <nav class="navbar navbar-default nav-panel" role="navigation">
+
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+
+                      <a class="navbar-brand" id="brand-name" href="#">
+                        <img src="{% static 'home/img/logo.png' %}" alt="gluu logo">
+                      </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbar-ex1-collapse">
+                      <ul class="nav navbar-nav">
+                        <li>
+                          <a data-scroll-nav="3" href="#pricing">Pricing</a>
+                        </li>
+                        <li>
+                          <a data-scroll-nav="4" href="#faq">FAQs</a>
+                        </li>
+                        <li>
+                          <a href="https://gluu.org/docs/oxd/" target="_blank">Docs</a>
+                        </li>
+                      </ul>
+                    </div><!-- end .navbar-ex1-collapse-->
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </header>
+        </div><!-- end .fixedtop-wrapper-->
+
+      </div><!-- .header-banner-wrapper l-header-->
+
+      <div class="home-banner-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="banner-inner">
+                <div class="banner-content brlg">
+                  <h1>
+                    Add OpenID Connect to web apps
+                  </h1>
+                  <p>
+                    oxd is an application that makes it easy to securely implement login <br>
+                    with any standard OpenID Provider (OP).<br>
+                  </p>
+                  <div class="schedule-btn">
+                    <a href="{% url 'account:register' %}">Get your oxd license</a>
+                    <a class="white-btn" style="color: #1e2638; background-color: #fff;" href="https://youtu.be/zZMf84wB2f0" target="_blank">Watch a demo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="mercury-bc">
+        <div class="container pt88 pb89">
+
+          <div class="row">
+            <div class="col-sm-7 pull-cell-right mb20-xs">
+              <img src="{% static 'home/img/oxd-setup.png' %}" class="img-responsive center-block">
+            </div>
+            <div class="col-sm-5 pull-cell-left">
+              <div class="brlg">
+                <h2>Secure single sign-on (SSO) for
+                  all your web applications
+                </h2>
+              </div>
+              <p>
+                Install oxd to make sending users to any standard OpenID Provider for login -- like Google Plus, Google OAuth or the Gluu Server -- fast, easy, and secure.
+              </p>
+              <div class="button-wrapper">
+                <a href="https://gluu.org/docs/oxd/" target="_blank" class="btn btn-default">Read the Docs</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section class="mercury-bc">
+      <div class="container pt88 pb89">
+
+        <div class="row">
+          <div class="col-sm-7">
+            <div id="lang-tabs">
+              <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#python" aria-controls="Python" role="tab" data-toggle="tab">Python</a></li>
+                <li role="presentation"><a href="#ruby" aria-controls="Ruby" role="tab" data-toggle="tab">Ruby</a></li>
+                <li role="presentation"><a href="#js" aria-controls="JS" role="tab" data-toggle="tab">JS</a></li>
+                <li role="presentation"><a href="#php" aria-controls="php" role="tab" data-toggle="tab">php</a></li>
+                <li role="presentation"><a href="#java" aria-controls="Java" role="tab" data-toggle="tab">Java</a></li>
+                <li role="presentation"><a href="#cs" aria-controls="C#" role="tab" data-toggle="tab">C#</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="java">
+                  <pre>
+                    <code class="java">CommandClient client = null;
+try {
+  client = new CommandClient(host, port);
+
+  final RegisterSiteResponse site = RegisterSiteTest.registerSite(client, opHost, redirectUrl);
+  final GetTokensByCodeResponse tokens = requestTokens(client, site, userId, userSecret);
+
+  GetUserInfoParams params = new GetUserInfoParams();
+  params.setOxdId(site.getOxdId());
+  params.setAccessToken(tokens.getAccessToken());
+
+  final GetUserInfoResponse resp = client.send(new Command(CommandType.GET_USER_INFO).setParamsObject(params)).dataAsResponse(GetUserInfoResponse.class);
+} finally {
+  CommandClient.closeQuietly(client);
+}
+                </code>
+              </pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="php">
+              <pre>
+                <code class="php">session_start();
+require_once '../Get_user_info.php';
+
+echo 'Get_user_info';
+$get_user_info = new Get_user_info();
+$get_user_info->setRequestOxdId($_SESSION['oxd_id']);
+$get_user_info->setRequestAccessToken($_SESSION['access_token']);
+$get_user_info->request();
+
+print_r($get_user_info->getResponseObject());
+                </code>
+              </pre>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="python">
+              <pre>
+                <code class="python">user = oxc.get_user_info(tokens.access_token)
+
+# The claims can be accessed using the dot notation.
+print user.username
+print user.website
+
+print user._fields  # to print all the fields
+
+# to check for a particular field and get the information
+if 'website' in user._fields:
+print user.website
+                </code>
+              </pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ruby">
+              <pre>
+                <code class="ruby">def login
+  if (params[:code].present?)
+    @access_token = @oxd_command.get_tokens_by_code( params[:code] )
+  end
+    session.delete('oxd_access_token') if(session[:oxd_access_token].present?)
+    session[:oxd_access_token] = @access_token
+    session[:state] = params[:state]
+    session[:session_state] = params[:session_state]
+  @user = @oxd_command.get_user_info(session[:oxd_access_token])
+end
+                </code>
+              </pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="cs">
+              <pre>
+                <code class="cs">public GetUserInfoResponse GetUserInfo(string host, int port, string accessToken)
+                  {
+    try
+      {
+      CommandClient client = new CommandClient(host, port);
+
+      GetUserInfoParams param = new GetUserInfoParams();
+      param.setOxdId(StoredValues._oxd_id);
+      param.setAccessToken(accessToken);
+
+      Command cmd = new Command(CommandType.get_user_info);
+      cmd.setParamsObject(param);
+
+      string response = client.send(cmd);
+      GetUserInfoResponse res = new GetUserInfoResponse(JsonConvert.DeserializeObject<dynamic>(response).data);
+      Assert.IsNotNull(res);
+      return res;
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine(ex.Message);
+      Logger.Debug(ex.Message);
+      return null;
+  }
+}
+          </code>
+        </pre>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="js">
+        <pre>
+          <code class="js">try {
+  var oxd = require("oxd-node");
+  oxd.Request.oxd_id = "your site id"; //REQUIRED
+  oxd.Request.access_token = "access_token from OP redirect url"; //REQUIRED
+  oxd.get_user_info(oxd.Request,function(response){});
+} catch (err) {
+  console.log("error:" + err);
+}
+      </code>
+    </pre>
+  </div>
+</div>
+</div>
+</div>
+<div class="col-sm-5 ">
+  <div class="brlg">
+    <h2>
+      Simple API
+    </h2>
+  </div>
+  <p>
+    oxd makes it simple to implement authentication with OpenID Connect Providers in a few lines of code. If your application is programmed in a language we don't have a library for, you can use our simple REST API.
+  </p>
+  <div class="button-wrapper">
+    <a href="https://gluu.org/docs/oxd/install/" target="_blank" class="btn btn-default">Read the docs</a>
+  </div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+      <section class="mercury-bc">
+        <div class="container pt88 pb89">
+          <div class="row">
+            <div class="col-sm-7 pull-cell-right">
+              <div id="plugins-slider" class="flexslider row">
+                <ul class="slides col-sm-8 col-sm-offset-2">
+                  <li class="flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;">
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <a href="https://gluu.org/docs/oxd/plugin/wordpress/" target="_blank" data-toggle="tooltip" data-placement="left" title="" data-original-title="WordPress">
+                          <img src="{% static 'home/img/wordpress_img.png' %}" alt="WordPress" class="img-responsive" draggable="false">
+                        </a>
+                      </div>
+                      <div class="col-xs-4">
+                        <a href="https://gluu.org/docs/oxd/plugin/drupal/" target="_blank" data-toggle="tooltip" target="_blank" data-placement="top" title="" data-original-title="Drupal">
+                          <img src="{% static 'home/img/drupal_img.png' %}" alt="Drupal" class="img-responsive" draggable="false">
+                        </a>
+                      </div>
+                      <div class="col-xs-4">
+                        <a href="https://gluu.org/docs/oxd/plugin/sugarcrm/" target="_blank" data-toggle="tooltip" target="_blank" data-placement="right" title="" data-original-title="SugarCRM">
+                          <img src="{% static 'home/img/sugarcrm_img.png' %}" alt="SugarCRM" class="img-responsive" draggable="false">
+                        </a>
+                      </div>
+                    </div><div class="row">                                                                                    <div class="col-xs-4">
+                    <a href="https://gluu.org/docs/oxd/framework/play/" target="_blank" data-toggle="tooltip" data-placement="left" title="" data-original-title="Google Play Framework">
+                      <img src="{% static 'home/img/play_img.png' %}" alt="Google Play Framework" class="img-responsive" draggable="false">
+                    </a>
+                  </div>
+                  <div class="col-xs-4">
+                    <a href="https://gluu.org/docs/oxd/plugin/magento/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Magento">
+                      <img src="{% static 'home/img/magento_img.png' %}" alt="Magento" class="img-responsive" draggable="false">
+                    </a>
+                  </div>
+                  <div class="col-xs-4">
+                    <a href="https://gluu.org/docs/oxd/plugin/roundcube/" target="_blank" data-toggle="tooltip" data-placement="right" title="" data-original-title="Roundcube">
+                      <img src="{% static 'home/img/cms_img.png' %}" alt="Roundcube" class="img-responsive" draggable="false">
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <a href="https://gluu.org/docs/oxd/plugin/opencart/" target="_blank" data-toggle="tooltip" data-placement="left" title="" data-original-title="OpenCart">
+                      <img src="{% static 'home/img/opencart-cms-ecommerce-shop-sale-store-page-128.png' %}" alt="OpenCart" class="img-responsive" draggable="false">
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#"></a></li><li class="flex-nav-next"><a class="flex-next" href="#"></a></li></ul></div>
+          </div>
+          <div class="col-sm-5 mb54 brlg">
+            <h2>Plugins for popular open source
+              applications and frameworks
+            </h2>
+            <p>
+              oxd plugins for WordPress, Drupal, SugarCRM, SuiteCRM, Magento, RoundCube, Shopify and OpenCart make it easy to secure popular applications and frameworks with OpenID Connect.
+            </p>
+          </div>
+        </div><!--.row -->
+      </div>
+    </section>
+
+<section class="mercury-bc">
+  <div class="container pt88 pb89">
+
+    <div class="row">
+      <div class="col-sm-7 mb20-xs">
+        <img src="{% static 'home/img/security.png' %}" class="img-responsive center-block">
+      </div>
+      <div class="col-sm-5">
+        <div class="brlg">
+          <h2>Offer two-factor authentication and social login with the Gluu Server
+          </h2>
+        </div>
+        <p>
+          Use the Gluu Server as your OpenID Connect Provider to control how people are authenticated. The Gluu Server ships with support for several authentication mechanisms including social login, FIDO U2F tokens (like Yubikey), and even a free mobile two-factor authentication app called Super Gluu.
+        </p>
+        <div class="button-wrapper">
+          <a href="https://gluu.org/docs/" target="_blank" class="btn btn-default">Read the docs</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<div class="bondi-blue-wrapper schedule-a-call">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 brlg">
+        <h2>oxd Simplifies Application Security</h2>
+        <p>oxd is continually updated to address the latest OAuth 2.0 security knowledge so <br>
+         you always stay one step ahead of hackers and security vulnerabilities.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<section class="mercury-bc text-center" id="pricing">
+  <div class="container pt88 pb39">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Simple Pricing</h2>
+     </div>
+   </div>
+   <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1 style="color: #000; margin-bottom: 0; padding-bottom: 0;">
+        <span style="font-size: 40px">$</span>
+        <span style="font-size: 58px; font-weight: bold">0.33</span>
+        <span style="font-size: 40px">USD</span><span style="font-size: 40px">/</span><span style="font-size: 40px">day</span>
+      </h1>
+      <p style="margin-top: 0; padding-top: 0;">for each active oxd installation</p>
+      <div class="button-wrapper">
+        <a href="{% url 'account:register' %}" class="btn btn-default">Get your oxd License</a>
+      </div>
+      <br>
+      <p style="margin-top: 0;">Signing up for oxd is <strong>free</strong> and comes with a <strong>$50</strong> credit
+       for <br>charges incurred during the first 60 days of use.
+     </p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+  <div data-scroll-index="6" id="faqs" class="container pt88 pb89">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="hwrapper">
+          <h2>FAQ's</h2>
+          <hr>
+        </div>
+      </div>
+    </div>
+
+    <div class="row faqs">
+      <div class="col-sm-6">
+        <p><strong>What is oxd?</strong>oxd is a mediator: it provides API’s that can be called by a web application that are easier than directly calling the API’s of an OpenID Connect Provider (OP) or an UMA Authorization Server (AS).</p>
+        <p><strong>Which programming languages and frameworks does oxd have libraries for?</strong>Currently oxd has libraries for the following languages and frameworks: Php, Java, Python, Ruby, C#, Node.js, Spring, and Lua. Learn more about each library in our <a href="https://gluu.org/docs/oxd" target="_blank">oxd documentation.</a> oxd listens on a linux socket, so if your language isn't listed, you can access oxd REST API via a socket.<br>
+        </p>
+        <p><strong>How do I get SSO across several websites?</strong>You’ll need two things: (1) a central OpenID Connect Provider that holds the passwords and user information; (2) websites that use the OpenID Connect protocol to authenticate users. An easy way to accomplish the first–utilize Google as your OP, or install and configure the<a href="http://gluu.org/docs/deployment" target="_blank"> free open source Gluu Server</a> using the Linux packages for CentOS, Ubuntu, Debian or Red Hat. The second is accomplished by <a href="https://gluu.org/docs/oxd/install/" target="_blank">installing the oxd service</a> on each web server that needs SSO. This provides easy to use local API’s that can be called by your web applications, and enables you to use a number of plugins for popular open source software packages.</p>
+        <p><strong>Can I use Google or Microsoft Azure Active Directory as my OpenID Connect Provider?</strong>oxd works very well with Google. Due to Microsoft's non-standard implementation od OpenID Connect, you will need to tweak oxd to get it working with Microsoft Azure Active Directory.</p>
+      </div>
+      <div class="col-sm-6">
+        <p><strong>How is oxd licensed?</strong>oxd is commercially licensed. Each time you install oxd you will need to use your license. Active installations are billed $0.33 per day (roughly $10 USD per month per active installation). Get your oxd license today.</p>
+        <p><strong>Where do I deploy oxd?</strong>oxd is deployed on the same server as the web applications you want to protect.</p>
+        <p><strong>Can I use oxd&nbsp;plugins for social login?</strong>Currently the Gluu Server supports Google authentication. In the next release (3.0), Gluu will support a new social login module called Passportjs. This will enable you to use over 300 social login sites, including Facebook or Twitter. Stay tuned!</p>
+        <p><strong>Can I use oxd plugins for two-factor authentication (2FA)?</strong>You can specify a value for “acr,” which provides the OpenID Connect provider with a hint about what kind of authentication to use. The Gluu Server ships with several built in two-factor authentication mechanisms. Two that are very easy to use are FIDO U2F tokens (like Yubikey) and Duo Security. Gluu also has published a free mobile two factor authentication app for iOS and Android called <a href="http://super.gluu.org/" target="_blank">Super Gluu</a>. If you’re a geek, you can write your own <a href="https://gluu.org/docs/customize/script/#person-authentication" target="_blank">custom authentication script</a> in the Gluu Server, and implement support for any kind of strong authentication technology.</p>
+        <p><strong>Can I purchase support for the Gluu Server or oxd?</strong>Yes, for information on paid support, <a href="http://gluu.org/pricing">visit our website</a>.</p>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="main-footer">
+  <div class="container">
+
+  <div class="row">
+          <div class="col-sm-2 text-center-lsm">
+            <a href="#"><i class="general-gluu_gray_logo"></i></a>
+          </div>
+          <div class="col-sm-10">
+            <div class="footer-nav-wrapper">
+              <ul class="footer-nav">
+               <li>
+                <a href="https://gluu.org/docs/oxd/" target="_blank">Read the docs</a>
+              </li>
+              <li class="schedule-btn">
+                <a href="{% url 'account:register' %}">Get a license</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-7">
+        <ul class="copyright-list">
+          <li>© 2016 <a href="http://gluu.org/">Gluu</a> All rights reserved</li>
+          <li><a href="http://www.gluu.org/terms">Terms of Service</a></li>
+          <li><a href="http://www.gluu.org/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-5">
+        <ul class="social-links">
+          <li>
+            <a href="https://twitter.com/GluuFederation">
+              <i class="general-social_twitter_ic"></i>
+            </a>
+          </li>
+          <li>
+            <a href="http://www.linkedin.com/company/gluu-inc.">
+              <i class="general-social_in_ic"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/user/GluuOrg">
+              <i class="general-social_utube_ic"></i>
+            </a>
+          </li>
+          <li>
+            <a href="http://www.slideshare.net/gluu">
+              <i class="general-social_slideshare_ic"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</footer>
+
+</div><!-- .main-wrapper-->
+
+
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/scrollIt.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/jquery.flexslider.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/respond.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/jquery.magnific-popup.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/highlight.pack.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/main.js' %}"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31008645-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body></html>

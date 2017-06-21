@@ -1,0 +1,1 @@
+ACTIVE_HOURS = 24

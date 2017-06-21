@@ -1,0 +1,19 @@
+{% extends 'emails/base_template.html' %}
+{% block content %}
+
+<div class="message_container">
+
+	<p>Hello,</p>
+
+	<p>A new account has been created on oxd.gluu.org:</p>
+	<p>
+		Name: {{account.get_name}}<br/>
+		Primary Contact: {{account.primary_contact.get_full_name}}<br/>
+		Email: {{account.primary_contact.email}}<br/>
+		Country: {{account.get_country_display}}
+	</p>
+	<p>Thank you, <br />
+	Gluu</p>
+</div>
+
+{% endblock %}

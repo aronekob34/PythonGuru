@@ -1,0 +1,53 @@
+{% extends 'account/base.html' %}
+{% block title %}Register | {% endblock %}
+{% block try_oxd %}
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h4>You're almost complete!</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="complete-section complete">
+      <div class="complete-icon">
+        <div>
+          <i class="zmdi zmdi-view-list-alt"></i>
+          <span class="complete-check"><i class="zmdi zmdi-check-circle"></i></span>
+        </div>
+      </div>
+      <p class="small">Step 1</p>
+      <h5>Sign Up</h5>
+      <p>Complete!</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="complete-section active">
+      <div class="complete-icon">
+        <div>
+          <i class="zmdi zmdi-email-open"></i>
+        </div>
+      </div>
+      <p class="small">Step 2</p>
+      <h5>Activate your account</h5>
+      <p>Check your email address {{email}} for your activation link.</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="complete-section">
+      <div class="complete-icon">
+        <div>
+          <i class="zmdi zmdi-sign-in"></i>
+        </div>
+      </div>
+      <p class="small">Step 3</p>
+      <h5>Sign In</h5>
+      <p>And you're done!</p>
+    </div>
+  </div>
+</div>
+<hr>
+
+{% endblock %}

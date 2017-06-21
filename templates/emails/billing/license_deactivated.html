@@ -1,0 +1,22 @@
+{% extends 'emails/base_template.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="message_container">
+
+	<p>Hello,</p>
+
+	<p>Your credit card ending in {{last_4}} was recently declined twice, leaving an outstanding balance of ${{payment.paid_amount|floatformat:2 | intcomma}} for usage of your oxd license.</p>
+
+	<p>This often happens when a credit or debit card has exceeded its spending limit. Please review your payment method and contact your card issuer to find out why the charge failed.</p>
+
+	<p>Your oxd license has been deactivated and all oxd installations associated with this license will not work until the balance is cleared.</p>
+
+	<p>In order to complete your payment and reactivate your oxd license, please reach out to will@gluu.org</p>
+
+	<p>Thank you,<br>
+	Gluu</p>
+
+</div>
+
+{% endblock %}

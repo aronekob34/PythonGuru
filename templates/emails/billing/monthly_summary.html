@@ -1,0 +1,67 @@
+{% extends 'emails/base_template.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="message_container">
+
+	<p>Hello,</p>
+
+	<p>The monthly billing summary for your oxd license is now available.</p>
+
+	<p>Your account will be billed automatically on {{billing_date}}.</p>
+
+	<p>Account Name: {{account_name}}<br>
+	Reference ID: {{payment.invoice_id}}<br>
+	Total Charges: ${{payment.amount|floatformat:2 | intcomma}}<br>
+	{% if payment.credits_used %}
+	Credits Used: ${{payment.credits_used|floatformat:2 | intcomma}}<br>
+	Amount Charged: ${{payment.paid_amount|floatformat:2 | intcomma}}<br>
+	{% endif %}
+	{% if last_4 %}
+		Last 4 of the billing: {{last_4}}<br>
+	{% endif %}
+	</p>
+
+	{% if not last_4 %}
+	<p>We noticed that you haven't added a credit card yet. <a href="{{billing_management_link}}">Please attach a credit card to your account to keep using your licences after your free credit has expired.</a></p>
+	{% else %}
+	<p>If you want to review or make changes to your payment information, <a href="{{billing_management_link}}">log into your account</a>.</p>
+	{% endif %}
+
+	<p>If something is unclear or you need to dispute any charges, <a href="mailto:will@gluu.org">please reply to this email</a>.</p>
+
+	<p>Each time oxd is installed on a VM or server, the machine's MAC Address is recorded. If a MAC Address cannot be found a UID is generated for that machine. Active installations are counted and billed $0.33 per day.</p>
+
+	<p>Monthly usage records:</p>
+	<div class="breakdown">
+		<table>
+			<thead>
+				<tr>
+					<td>MAC Address or UID</td>
+					<td>Days Active	</td>
+					<td>Charged</td>
+				</tr>
+			</thead>
+			<tbody>
+			{% for mac, usage in payment.details.iteritems %}
+			<tr>
+				<td>{{mac}}</td>
+				<td>{{usage.0}}</td>
+				<td>${{usage.1}}</td>
+			</tr>
+			{% endfor %}
+			<tfoot>
+				<td>Total</td>
+				<td>{{record.number_licenses}}</td>
+				<td>${{record.total_usd}}</td>
+			</tfoot>
+			</tbody>
+		</table>
+	</div>
+	<p>
+	Thank you,<br>
+	Gluu
+	</p>
+</div>
+
+{% endblock %}

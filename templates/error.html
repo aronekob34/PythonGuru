@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="page-404">
+    <div class="page-404__content">
+      <h2>{{error}}</h2>
+      <div class="page-404__text">
+        <p>{{description}}</p>
+        <p>Please mail <a href="mailto:support@gluu.org">support@gluu.org</a> if you need help.</p>
+      </div>
+      <a href="/" class="default-button">Home</a>
+    </div>
+  </div>
+{% endblock content %}

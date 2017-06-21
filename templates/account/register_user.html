@@ -1,0 +1,93 @@
+{% extends 'account/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Login | {% endblock %}
+
+{% block try_oxd %}
+<div class="row gluu-account-info">
+  <div class="col-xs-12">
+    <form action="{% url 'account:register-invite' activation_key%}" method="post" class="form-horizontal">
+      {% csrf_token %}
+
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+          <p class="small text-muted">
+            *All fields are required unless stated as optional.
+          </p>
+        </div>
+      </div>
+
+      {{ registration_form.non_field_errors }}
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3">{{ registration_form.first_name.errors }}</div>
+        </div>
+        <label for="{{ registration_form.first_name.id_for_label }}" class="col-sm-3 control-label">Personal details</label>
+        <div class="col-sm-9">
+          {{ registration_form.first_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3">{{ registration_form.last_name.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ registration_form.last_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3">{{ registration_form.email.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ registration_form.email }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3">{{ registration_form.phone_number.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ registration_form.phone_number }}
+        </div>
+      </div>
+
+      <br>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3">{{ registration_form.password1.errors }}</div>
+        </div>
+        <label for="{{ registration_form.password1.id_for_label }}" class="col-sm-3 control-label">Select a password</label>
+        <div class="col-sm-9">
+          {{ registration_form.password1 }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3">{{ registration_form.password2.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ registration_form.password2 }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <button type="submit" class="default-button">Create my Gluu account</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

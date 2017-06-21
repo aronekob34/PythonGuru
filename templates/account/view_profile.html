@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Profile | {% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row dashboard">
+		<div class="col-xs-12">
+			<div class="widget subscribe view-profile">
+				<a href="{%url 'account:dashboard' %}"><i class="zmdi zmdi-chevron-left"></i> Back</a>
+				<h4> Billing profile for you account </h4>
+
+				<a href="{%url 'account:edit-profile' %}">Edit</a>
+				<h5> Account Type </h5>
+
+				<div class="row">
+					<div class="col-xs-6 col-sm-4 text-right-sm">Account Type:</div>
+					<div class="col-xs-6 col-sm-8">{{user.account.account_type}}</div>
+				</div>
+				<hr>
+
+				<h5> Address </h5>
+				<div class="row">
+					<div class="col-sm-4 text-right-sm hidden-xs">Address:</div>
+					<div class="col-sm-8 address">
+						{% if user.account.business_name %}<h5 style="font-weight: 400; margin-bottom: 0">{{user.account.business_name}}</h5>{% endif %}
+						<h5 style="font-weight: 400; font-size: 16px">{{user.account.name}}</h5>
+						<p>{{user.account.address_1}}</p>
+						{% if user.account.address_2 %}<p>{{user.account.address_2}}</p>{% endif %}
+						<p>{{user.account.city}}</p>
+						<p>{{user.account.state}}</p>
+						<p>{{user.account.zip_code}}</p>
+						<p>{{user.account.country}}</p>
+					</div>
+				</div>
+				<hr>
+
+				<h5> Billing Administrators </h5>
+				<div class="row">
+					<div class="col-sm-10">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<td> Name </td>
+									<td> Phone </td>
+									<td> Email </td>
+								</tr>
+							</thead>
+							<tbody>
+								{% for billing_admin in billing_admins %}
+								<tr>
+									<td> {{billing_admin.get_full_name}} {% if billing_admin.is_primary_contact %} (Primary Contact) {% endif %}</td>
+									<td> {{billing_admin.phone_number}} </td>
+									<td> {{billing_admin.email}} </td>
+									<td>
+										{% if request.user != billing_admin and not billing_admin.is_primary_contact %}
+										<a href="{%url 'account:revoke-access' billing_admin.id %}">X</a>
+										{% endif %}
+									</td>
+								</tr>
+								{% endfor %}
+
+								{% for invite in invites %}
+									<tr>
+										<td colspan="2">Invitation Sent</td>
+										<td>{{invite.email}}</td>
+										<td><a href="{%url 'account:revoke-invite' invite.id %}">X</a></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8">
+						<form action="{% url 'account:send-invite' %}" method="post">
+							{% csrf_token %}
+							<div class="row">
+								<div class="col-xs-12">
+									{{ invitation_form.non_field_errors }}
+									{{ invitation_form.email.errors }}
+								</div>
+							</div>
+							{{ invitation_form.email }}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+	$(function(){
+		$('#{{ invitation_form.email.id_for_label }}').attr('placeholder', 'Email');
+	});
+</script>
+{% endblock %}

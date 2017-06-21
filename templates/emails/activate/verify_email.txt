@@ -1,0 +1,7 @@
+Hello {{ name }},
+
+Thank you for signing up for an oxd license. To activate your account, please follow this link: {{ activation_link }}
+
+Thank you,
+
+Gluu

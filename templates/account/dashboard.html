@@ -1,0 +1,479 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load account_tags %}
+
+{% block title %}Dashboard | {% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row dashboard">
+		<div class="col-xs-12">
+			<div class="widget subscribe license-details">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row license-row">
+							<div class="col-md-8">
+								<h5>
+									License <code id="license">{{ user.account.license.license_id }}</code>
+									<a href="#" class="copy-pre" data-clipboard-target="#license">
+										<i class="zmdi zmdi-copy"></i> <span style="font-size: 14px">Copy</span>
+									</a>
+								</h5>
+							</div>
+							<div class="col-md-4">
+								{% if user.account.license.is_active %}
+								<div class="text-right">
+									Active &ensp; <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#license-cancel-modal">Cancel</a>
+								</div>
+								{% else %}
+								<div class="text-right">
+									Disabled &ensp; <a href="{% url 'license:activate' user.account.license.license_id %}" class="btn btn-primary">Reactivate</a>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-xs-6">Public Key:</div>
+									<div class="col-xs-6 text-right">
+										<a href="#" class="copy-pre" data-clipboard-target="#public-key"><i class="zmdi zmdi-copy"></i> Copy</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<pre id="public-key">{{user.account.license.public_key}}</pre>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-6">Public Password:</div>
+									<div class="col-xs-6 text-right">
+										<a href="#" class="copy-pre" data-clipboard-target="#public-password"><i class="zmdi zmdi-copy"></i> Copy</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<pre id="public-password">{{user.account.license.public_password }}</pre>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-6">License Password</div>
+									<div class="col-xs-6 text-right">
+										<a href="#" class="copy-pre" data-clipboard-target="#license-password"><i class="zmdi zmdi-copy"></i> Copy</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<pre id="license-password">{{user.account.license.license_password }}</pre>
+									</div>
+								</div>
+
+								<div class="row copy-all">
+									<div class="col-xs-12">
+										<a href="#" class="copy-pre" data-clipboard-text="LICENSE={{ user.account.license.license_id }}&#10;PUBLIC_KEY={{user.account.license.public_key}}&#10;PUBLIC_PASSWORD={{user.account.license.public_password }}&#10;LICENSE_PASSWORD={{user.account.license.license_password }}&#10;"
+										><i class="zmdi zmdi-copy"></i> Copy all license details</a>
+									</div>
+								</div>
+
+								<div class="row text-left">
+									<div class="col-xs-12">
+										<br>
+										<a class="btn btn-primary" href="https://oxd.gluu.org/docs/install/" target="_blank">oxd Installation Instructions</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="widget subscribe mac-address">
+				<div class="row">
+					<div class="col-xs-12">
+						<h5>{{active_mac_addresses | length}} Active Installations</h5>
+						{% if active_mac_addresses %}
+						<div class="row">
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div id="installation-table" class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Mac Address</th>
+											</tr>
+										</thead>
+										{% for mac_address in active_mac_addresses %}
+										{% if forloop.counter|modulo_10 == 1 %}
+										<tbody id="table-section-{{ forloop.counter|div_10 }}" class="table-section{% if forloop.counter == 1 %} active{% endif %}" {% if forloop.counter != 1 %}style="display: none"{% endif %}>
+										{% endif %}
+											<tr>
+												<td>{{ forloop.counter }}</td>
+												<td>{{mac_address}}</td>
+											</tr>
+										{% if forloop.counter|modulo_10 == 0 or forloop.counter == active_mac_addresses|length %}
+										</tbody>
+										{% endif %}
+										{% endfor %}
+									</table>
+								</div>
+							</div>
+						</div>
+
+						{% if active_mac_addresses|length > 10 %}
+						<div class="row">
+							<div class="col-xs-12">
+								<nav>
+									<ul class="pagination">
+										{% for mac_address in active_mac_addresses %}
+										{% if forloop.counter|modulo_10 == 1 %}
+								    <li {% if forloop.counter == 1 %}class="active"{% endif %}><a href="" class="page-control" data-target="#table-section-{{ forloop.counter|div_10 }}">{{ forloop.counter|div_10 }}</a></li>
+								    {% endif %}
+								    {% endfor %}
+									</ul>
+								</nav>
+							</div>
+						</div>
+						{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class="widget subscribe admin-details">
+				<div class="row">
+					<div class="col-xs-12">
+						{% if user.account.payment_on_platform and user.account.remaining_credits > 0%}
+						<div class="row">
+							<div class="col-xs-12">
+								<h5> Credits </h5>
+								<h4 style="font-weight: 400">$ {{ user.account.remaining_credits | floatformat:2 | intcomma }}</h4>
+							</div>
+						</div>
+						{% endif %}
+						<div class="row">
+							{% if not user.account.payment_on_platform %}
+								<div class="col-md-4 lane">
+									<div class="row">
+										<div class="col-xs-12">
+											<h5> Profile </h5>
+										</div>
+										<div class="col-xs-12">
+											<a href="{% url 'account:view-profile' %}">Manage</a>
+										</div>
+									</div>
+
+									<div class="row address">
+										<div class="col-xs-12">
+											<div style="font-size: 20px">{{ user.account.get_name }} </div><br>
+											<p>{{ user.account.address_1 }}</p>
+											<p>{{ user.account.address_2 }}</p>
+											<p>{{ user.account.city }}</p>
+											<p>{% if user.account.state %} {{ user.account.state }} - {% endif %}{{user.account.zip_code}}</p>
+											<p>{{ user.account.country }}</p>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+							<div class="col-md-8">
+								<h5> Billing Administrators </h5>
+								<table class="table">
+									<tbody>
+
+										{% for billing_admin in billing_admins %}
+										<tr>
+											<td>{{ billing_admin.email }}</td>
+											<td>{% if billing_admin.is_primary_contact %}Primary Contact{% endif %}</td>
+											<td>
+												{% if request.user != billing_admin and not billing_admin.is_primary_contact %}
+												<a href="#" data-remove-url="{%url 'account:revoke-access' billing_admin.id %}" data-user-email="{{ billing_admin.email }}" data-toggle="modal" data-target="#admin-remove-modal">X</a>
+												{% endif %}
+											</td>
+										</tr>
+										{% endfor %}
+										{% for invite in invites %}
+										<tr>
+											<td>{{ invite.email }}</td>
+											<td>Invitation Sent</td>
+											<td><a href="#" data-remove-url="{%url 'account:revoke-invite' invite.id %}" data-toggle="modal" data-target="#invite-revoke-modal">X</a></td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<div class="row">
+									<div class="col-md-9">
+										<form action="{% url 'account:send-invite' %}" method="post">
+											{% csrf_token %}
+											<div class="row">
+												<div class="col-xs-12"><span class="text-muted">Add a billing contact for this account:</span></div>
+											</div>
+											<div class="row">
+												<div class="col-xs-12">
+													{{ invitation_form.non_field_errors }}
+													{{ invitation_form.email.errors }}
+												</div>
+											</div>
+											{{ invitation_form.email }}
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% if user.account.payment_on_platform %}
+			<div class="widget subscribe summary">
+				<div class="row">
+					<div class="col-md-4 lane">
+						<div class="row">
+							<div class="col-md-6"><h5> Current balance </h5></div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<h4 style="font-weight: 400">$ {{ user.account.balance |floatformat:2 | intcomma }}</h4>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								{% if last_payment %}
+									<p>Last Payment {{last_payment.created | date:"SHORT_DATE_FORMAT"}} for ${{last_payment.paid_amount}}</p>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+					{% if user.account.stripe %}
+					<div class="col-md-4 lane middle-lane">
+						<div class="row">
+							<div class="col-md-6">
+								<h5> How you pay </h5>
+							</div>
+							<div class="col-md-6 ">
+								<a href="{% url 'payment:view-cards' %}">Manage</a>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div id="card-details"></div>								
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<p>Monthly automatic payments</p>
+							</div>
+						</div>
+					</div>
+					{% else %}
+					<div class="col-md-4 lane middle-lane">
+						<div class="row">
+							<div class="col-md-6">
+								<h5> How you pay </h5>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<p>You haven't added a payment method yet <br/>
+								<a href="{% url 'payment:add-card' %}">Add a credit card now</a></p>
+							</div>
+						</div>
+
+					</div>
+
+					{% endif %}
+					<div class="col-md-4 lane">
+						<div class="row">
+							<div class="col-md-6">
+								<h5> Profile </h5>
+							</div>
+							<div class="col-md-6">
+								<a href="{% url 'account:view-profile' %}">Manage</a>
+							</div>
+						</div>
+
+						<div class="row address">
+							<div class="col-xs-12">
+								<div style="font-size: 20px"> {{ user.account.get_name }} </div><br>
+								<p>{{ user.account.address_1 }}</p>
+								<p>{{ user.account.address_2 }}</p>
+								<p>{{ user.account.city }}</p>
+								<p>{% if user.account.state %} {{ user.account.state }} - {% endif %}{{user.account.zip_code}}</p>
+								<p>{{ user.account.country }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+
+			<div class="widget subscribe usage-records">
+				<div class="row">
+					<div class="col-xs-12">
+						<h5>Usage records</h5>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<tbody>
+									{% for record in license_records %}
+									<tr class="anchor-row" data-target="#collapse{{ forloop.counter }}">
+										<td>{% format_timespan record.month record.year %} </td>
+										{% if user.account.payment_on_platform %}
+                    <td>{% if not record.paid %}Current Balance{% else %}Total Billed{% endif %}: ${{record.total_usd}}</td>
+                    					{% endif %}
+                    <td>License installations: {{record.number_licenses}}</td>
+                    <td>Total Mac Addresses: {{record.no_mac}}</td>
+										<tbody id="collapse{{ forloop.counter }}" class="collapse{% if forloop.counter == 1 %} in{% endif %}">
+											<tr>
+												<th class="text-right">Mac Address</th>
+												<th>License installations</th>
+												{% if user.account.payment_on_platform %}
+												<th></th>
+												{% endif %}
+												<th></th>
+											</tr>
+											{% for mac, count in record.details.items %}
+											<tr>
+												<td class="text-right">{{mac}}</td>
+												<td>{{count}}</td>
+												{% if user.account.payment_on_platform %}
+												<td></td>
+												{% endif %}
+												<td></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</tr>
+
+									{% endfor %}
+									{% if not license_records %}
+										<p>No usage records yet.</p>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="license-cancel-modal" tabindex="-1" role="dialog" aria-labelledby="license-cancel-modal-label">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="myModalLabel">Confirm License Cancellation</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-xs-12">
+        		<p>Are you sure you want to deactivate your license? Any installation using this license will stop working.</p>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-default" data-dismiss="modal">No, take me back</a>
+        <a href="{% url 'license:activate' user.account.license.license_id %}" class="btn btn-danger">Yes, deactivate my license</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="admin-remove-modal" tabindex="-1" role="dialog" aria-labelledby="admin-remove-modal-label">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="myModalLabel">Confirm Billing Administrator Removal</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-xs-12">
+        		<p>Are you sure you want to remove this user from your account? This person will no longer have access to the license management portal.</p>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-default" data-dismiss="modal">No, take me back</a>
+        <a class="btn btn-danger take-action">Yes, remove this user</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="invite-revoke-modal" tabindex="-1" role="dialog" aria-labelledby="invite-revoke-modal-label">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="myModalLabel">Confirm Invite Revocation</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-xs-12">
+        		<p>Are you sure you want to revoke this invite?</p>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-default" data-dismiss="modal">No, take me back</a>
+        <a class="btn btn-danger take-action">Yes, revoke this invite</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script src="/static/js/js.cookie.js" language="javascript" type="text/javascript"></script>
+{% if user.account.stripe %}
+	<script src="/static/js/stripe_card.js" language="javascript" type="text/javascript"></script>
+{% endif %}
+<script>
+$(function(){
+	$('#{{ invitation_form.email.id_for_label }}').attr('placeholder', 'Email');
+
+	$('#admin-remove-modal').on('show.bs.modal', function(event) {
+		var removeUrl = $(event.relatedTarget).data('remove-url');
+		var userEmail = $(event.relatedTarget).data('user-email');
+		$(this).find('.take-action').attr('href', removeUrl);
+	});
+
+	$('#invite-revoke-modal').on('show.bs.modal', function(event) {
+		var removeUrl = $(event.relatedTarget).data('remove-url');
+		$(this).find('.take-action').attr('href', removeUrl);
+	});
+
+	$('.page-control').click(function(e){
+		e.preventDefault();
+		var dataTarget = $(this).attr('data-target')
+		$('.table-section').fadeOut(200, function(){
+			setTimeout(function(){
+				$(dataTarget).fadeIn();
+			}, 200);
+		});
+		$('.pagination li').removeClass('active');
+		$(this).parent().addClass('active');
+	});
+
+	$('.anchor-row').click(function(e){
+		$($(this).attr('data-target')).collapse('toggle');
+	})
+});
+</script>
+{% endblock js %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Billing Details | {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row dashboard">
+    <div class="col-xs-12">
+      <div class="widget subscribe edit-profile">
+        <div class="row">
+          <div class="col-xs-12">
+          	<a href="{%url 'account:dashboard' %}"> <i class="zmdi zmdi-chevron-left"></i> Back</a>
+
+			<h4> Manage billing preferences </h4>
+			<br>
+			<div class="row">
+				<div class="col-sm-4"><h5 class="text-right-sm"> How you pay </h5></div>
+				<div class="col-sm-8">
+					<p style="color: #000">Monthly automatic payments</p>
+					<p>We automatically charge you on the first day of the month for charges accrued during the preceding month.</p>
+					<a href="{% url 'payment:add-card' %}" class="default-button btn-white"><i class="zmdi zmdi-plus"></i> Add a new payment method</a>
+				</div>
+			</div>
+
+			{% if cards %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h5 style="border-bottom: 1px solid #ccc; margin-top: 30px; padding-bottom: 5px"> Available payment methods </h5>
+					</div>
+				</div>
+
+				{% for card in cards %}
+					<div class="row">
+						<div class="col-xs-12">{% if card.is_expired %} This credit or debit card has expired {% endif %}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="text-right-sm">
+								<div>
+									<div class="cc-template">
+										{% if card.brand == 'Visa' %}
+											<div class="cc-visa-picture"></div>
+										{% elif card.brand == 'American Express' %}
+											<div class="cc-amex-picture"></div>
+										{% elif card.brand == 'MasterCard' %}
+											<div class="cc-mastercard-picture"></div>
+										{% elif card.brand == 'Discover' %}
+											<div class="cc-discover-picture"></div>
+										{% elif card.brand == 'JCB' %}
+											<div class="cc-jcb-picture"></div>
+										{% elif card.brand == 'Diners Club' %}
+											<div class="cc-diners-club-picture"></div>
+										{% endif %}
+										<div class="cc-number">
+											<div class="cc-hidden-number"> •••• •••• ••••  </div>
+											<div class="cc-display-number">{{card.last4}}</div>
+										</div>
+										<div class="cc-account-holder-name">
+											{{card.name}}
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="col-sm-4">
+							<div class="address">
+								<p style="font-size: 18px; color: #000">{{card.brand}} .... {{card.last4}} {% if card.is_primary %} (Primary) {% endif %}</p>
+								<p>Expires at {{card.exp_month}} / {{card.exp_year}}</p>
+							</div>
+
+							<div class="address">
+								<p style="margin-top: 10px; margin-bottom: 5px; font-size: 15px">{{card.name}}</p>
+								<p class="small">{{card.address_line1}}</p>
+								<p class="small">{{card.address_line2}}</p>
+								<p class="small">{{card.address_city}}</p>
+								<p class="small">{{card.address_zip}}{% if card.address_state %} - {{card.address_state}}{% endif %}</p>
+								<p class="small">{{card.address_country}}</p>
+							</div>
+
+							<div>
+								{% if not card.is_primary %}
+									<a href="{% url 'payment:primary-card' card.db_id %}">Make Primary Card </a> &emsp;
+									<a href="{% url 'payment:delete-card' card.db_id %}">Delete Card </a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<br>
+				{% endfor %}
+			{% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

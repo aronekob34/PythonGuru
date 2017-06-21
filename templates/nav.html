@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<!-- Preloader -->
+<div class="preloader">
+  <div class="preloader__figure"></div>
+</div>
+<!-- End Preloader -->
+
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <!-- Logotype -->
+      <div class="col-xs-10 col-sm-4">
+        <a class="header__logo" href="https://www.gluu.org/">
+          <img src="{% static 'img/logo.png' %}" alt="">
+        </a>
+      </div>
+      <!-- End Logotype -->
+
+      <!-- Navigation -->
+      <div class="col-xs-2 col-sm-8">
+        <nav class="desktop-navigation-wrap">
+          <ul class="desktop-navigation">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            {% if user.is_authenticated %}
+            <li class="dropdown">
+              <a id="dropdown-link2" data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.get_full_name }} <i class="zmdi zmdi-chevron-down"></i> &emsp; &ensp;
+              <i class="zmdi zmdi-account"></i> </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown-link2">
+                {% if user.account and user.account.stripe %}
+                <li>
+                  <a href="{%url 'account:dashboard' %}" >Dashboard</a>
+                </li>
+                {% endif %}
+                <li>
+                  <a href="{% url 'account:logout' %}">Logout</a>
+                </li>
+              </ul>
+            </li>
+            {% else %}
+            <li>
+              <a href="{% url 'social:begin' 'gluu' %}?next={% url 'account:register-authenticated' %}"> Log in to your Gluu Account </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+
+        <!-- mobile navigation button -->
+        <button class="navigation-button">
+          <i class="zmdi zmdi-menu"></i>
+          <i class="zmdi zmdi-close"></i>
+        </button>
+        <!-- end mobile navigation button -->
+      </div>
+      <!-- End Navigation -->
+    </div>
+  </div>
+</header>
+<!-- End Header -->
+
+<!-- Mobile Navigation -->
+<div class="mobile-navigation">
+  <ul>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    {% if user.is_authenticated %}
+    <li class="dropdown">
+      <a id="dropdown-link2" data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.account.name }} <i class="zmdi zmdi-chevron-down"></i> &emsp; &ensp;
+      <i class="zmdi zmdi-account"></i> </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdown-link2">
+        {% if user.account and user.get_full_name %}
+        <li>
+          <a href="{%url 'account:dashboard' %}" >Dashboard</a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="{% url 'account:logout' %}">Logout</a>
+        </li>
+      </ul>
+    </li>
+    {% else %}
+    <li>
+      <a href="{% url 'social:begin' 'gluu' %}?next={% url 'account:register-authenticated' %}"> Log in to your Gluu Account </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+<!-- End Mobile Navigation -->

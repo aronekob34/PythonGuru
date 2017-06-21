@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}Add a Card | {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row dashboard">
+    <div class="col-xs-12">
+      <div class="widget subscribe edit-profile">
+        <div class="row">
+          <div class="col-sm-8">
+            <a href="{% url 'payment:view-cards' %}"> <i class="zmdi zmdi-chevron-left"></i> Back</a>
+            <h5> Add new debit or credit card </h5>
+            <hr>
+
+            <form action="{% url 'payment:add-card' %}" method="POST" id="payment-form" class="form-horizontal">
+              {% csrf_token %}
+
+              <div class="row">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <div class="payment-errors"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Card Details</label>
+                <div class="col-sm-9">
+                  <input type="text" size="20" data-stripe="number" placeholder="Card Number">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row"><div class="col-sm-9 col-sm-offset-3"><span class="expiration">Expiration</span></div></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-5 cc-date">
+                  <input type="text" size="2" data-stripe="exp_month" placeholder="MM"> /
+                  <input type="text" size="2" data-stripe="exp_year" placeholder="YY">
+                </div>
+                <div class="col-sm-4 cvc">
+                  <div class="row">
+                    <div class="col-xs-8"><input type="text" size="4" data-stripe="cvc" placeholder="CVC" ></div>
+                    <div class="col-xs-2"><div class="col-sm-1 col-xs-2 cvc-help"><i class="zmdi zmdi-help" title="CVC is the last three digits of the number that appears on the back of your card in the signature bar." data-toggle="tooltip" data-placement="bottom"></i></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Billing Address</label>
+                <div class="col-sm-9">
+                  <input type="text" id="id_name" data-stripe="name" placeholder="Name" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <input type="text" id="id_address_1" data-stripe="address_line1" placeholder="Address Line 1" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <input type="text" id="id_address_2" data-stripe="address_line2" placeholder="Address Line 2">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <input type="text" id="id_city" data-stripe="address_city" placeholder="City" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-3">
+                  <input type="text" id="id_zip" data-stripe="address_zip" placeholder="Zip">
+                </div>
+
+                <div class="col-sm-5 state">
+                  <input type="text" id="id_state" data-stripe="address_state" placeholder="State">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <input type="text" id="id_country" data-stripe="address_country" placeholder="Country" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+               <div class="col-sm-9 col-sm-offset-3">
+                <button type="submit" class="default-button">Add Card</button>
+               </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<script type="text/javascript">Stripe.setPublishableKey('{{stripe_public_key}}');</script>
+	<script src="/static/js/stripe.js" language="javascript" type="text/javascript"></script>
+  {% if not user.account.stripe %}
+    <script>
+      $('#id_name').attr('value', '{{user.get_full_name}}');
+      $('#id_address_1').attr('value', '{{user.account.address_1}}');
+      $('#id_address_2').attr('value', '{{user.account.address_2}}');
+      $('#id_city').attr('value', '{{user.account.city}}');
+      $('#id_zip').attr('value', '{{user.account.zip_code}}');
+      $('#id_state').attr('value', '{{user.account.state}}');
+      $('#id_country').attr('value', '{{user.account.get_country_display}}');
+    </script>
+  {% endif %}
+{% endblock js %}

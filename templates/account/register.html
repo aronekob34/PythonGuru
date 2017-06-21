@@ -1,0 +1,199 @@
+{% extends 'account/base.html' %}
+{% load staticfiles %}
+{% block title %}Account Details | {% endblock %}
+
+{% block try_oxd %}
+<div class="row gluu-account-info">
+  <div class="col-xs-12">
+    <form id="payment-form" action="{% if user.is_authenticated %} {% url 'account:register-authenticated' %} {% else %} {% url 'account:register' %} {% endif %}" method="post" class="form-horizontal">
+      {% csrf_token %}
+
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+          <p class="small text-muted">
+            Already have a Gluu account from the Gluu Support Portal? <br><a href="{% url 'social:begin' 'gluu' %}?next={% url 'account:register' %}">Sign in to your account!</a>
+            <br><br>
+            *All fields are required unless stated as optional.
+          </p>
+        </div>
+      </div>
+
+      {% if not user.is_authenticated %}
+      <div class="row">
+        <div class="col-xs-12">
+          {{ user_form.non_field_errors }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="first-name-errors">{{ user_form.first_name.errors }}</div>
+        </div>
+        <label for="{{ user_form.first_name.id_for_label }}" class="col-sm-3 control-label">Personal details</label>
+        <div class="col-sm-9">
+          {{ user_form.first_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="last-name-errors">{{ user_form.last_name.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ user_form.last_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="email-errors">{{ user_form.email.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ user_form.email }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="phone-number-errors">{{ user_form.phone_number.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ user_form.phone_number }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="password-1-errors">{{ user_form.password1.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ user_form.password1 }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="password-2-errors">{{ user_form.password2.errors }}</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ user_form.password2 }}
+        </div>
+      </div>
+      {% else %}
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Personal details</label>
+        <div class="col-sm-9">
+          <input type="text" disabled value="{{ user.get_full_name }}">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <input type="email" disabled value="{{ user.email }}">
+        </div>
+      </div>
+      {% endif %}
+
+      <br>
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <div class="row">
+            <div class="col-xs-12">
+              <span>Account Type:</span>
+              <select name="account-type" id="account-type">
+                <option value="biz">Business</option>
+                <option value="ind">Individual</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="business-name-errors">
+            {{ account_form.business_name.errors }}
+          </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ account_form.business_name }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="address-1-errors">
+            {{ account_form.address_1.errors }}
+          </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ account_form.address_1 }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="address-2-errors">
+            {{ account_form.address_2.errors }}
+          </div>
+        </div>
+        <label for="" class="control-label col-sm-3"><span class="text-muted small"><em>Optional</em></span></label>
+        <div class="col-sm-9">
+          {{ account_form.address_2 }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="city-errors">
+            {{ account_form.city.errors }}
+          </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ account_form.city }}
+        </div>
+      </div>
+
+      <div class="form-group state-zip" style="display:none">
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-4" id="zip-code-errors">
+            {{ account_form.zip_code.errors }}
+          </div>
+          <div class="col-sm-5" id="state-errors">
+            {{ account_form.state.errors }}
+          </div>
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-4">
+          {{ account_form.zip_code }}
+        </div>
+        <div class="col-sm-5 state">
+          {{ account_form.state }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-9 col-sm-offset-3" id="country-errors">
+            {{ account_form.country.errors }}
+          </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          {{ account_form.country }}
+        </div>
+      </div>
+
+    <div class="form-group">
+     <div class="col-sm-9 col-sm-offset-3">
+      <button type="submit" class="default-button">Start my subscription <i class="zmdi zmdi-arrow-right"></i></button>
+     </div>
+    </div>
+
+  </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/login.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,69 @@
+{% extends 'account/base.html' %}
+{% block title %}Register | {% endblock %}
+{% block try_oxd %}
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h4>You're almost complete!</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="complete-section complete">
+      <div class="complete-icon">
+        <div>
+          <i class="zmdi zmdi-view-list-alt"></i>
+          <span class="complete-check"><i class="zmdi zmdi-check-circle"></i></span>
+        </div>
+      </div>
+      <p class="small">Step 1</p>
+      <h5>Sign Up</h5>
+      <p>Complete!</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="complete-section complete">
+      <div class="complete-icon">
+        <div>
+          <i class="zmdi zmdi-email-open"></i>
+          <span class="complete-check"><i class="zmdi zmdi-check-circle"></i></span>
+        </div>
+      </div>
+      <p class="small">Step 2</p>
+      <h5>Activate your account</h5>
+      <p>Complete!</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="complete-section active">
+      <div class="complete-icon">
+        <div>
+          <i class="zmdi zmdi-sign-in"></i>
+        </div>
+      </div>
+      <p class="small">Step 3</p>
+      <h5>Sign In</h5>
+      <p>And you're done! <br> We're redirecting you now!</p>
+    </div>
+  </div>
+</div>
+<hr>
+<p class="small">If you're not logged in automatically after three seconds, <a href="{% url 'social:begin' 'gluu' %}?next={% url 'account:dashboard' %}">click here</a> to log into your account</p>
+
+{% endblock %}
+
+{% block js %}
+<script>
+  $(function(){
+    $(window).load(function(){
+      $('body').imagesLoaded(function(){
+        setTimeout(function(){
+          window.location.href = "{% url 'social:begin' 'gluu' %}?next={% url 'account:dashboard' %}";
+        }, 3000);
+      });
+    });
+  });
+</script>
+{% endblock %}

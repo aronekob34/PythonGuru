@@ -1,0 +1,23 @@
+{% extends 'emails/base_template.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="message_container">
+	<p>Hello,</p>
+
+	<p>A payment of ${{payment.paid_amount|floatformat:2 | intcomma}} was applied to {{account_name}}’s financial account.</p>
+	<p>
+		Date: {{date}}<br>
+		Previous balance due: ${{payment.paid_amount|floatformat:2 | intcomma}}<br>
+		Amount charged: ${{payment.paid_amount|floatformat:2 | intcomma}}<br>
+		New balance: $0.00<br>
+		Payment method: Credit Card<br>
+		Reference ID: {{payment.invoice_id}}<br>
+	</p>
+	<p>Primary billing method charged</p>
+
+	<p>Thank you,<br>
+	Gluu</p>
+</div>
+
+{% endblock %}

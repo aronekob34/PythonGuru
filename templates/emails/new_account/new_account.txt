@@ -1,0 +1,12 @@
+Hello,
+
+A new account has been created on oxd.gluu.org:
+
+Name: {{account.get_name}}
+Primary Contact: {{account.primary_contact.get_full_name}}
+Email: {{account.primary_contact.email}}
+Country: {{account.get_country_display}}
+
+Thank you,
+
+Gluu

@@ -1,0 +1,11 @@
+{% extends 'emails/base_template.html' %}
+{% block content %}
+
+<div class="message_container">
+	<p>Hello {{ name }},</p>
+	<p>Thank you for signing up for an oxd license. To activate your account, please click on the link below:<p>
+	<p>{{activation_link}}</p>
+	<p>Thank you,<br />Gluu</p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'emails/base_template.html' %}
+{% block content %}
+
+<div class="message_container">
+    <p>Hi there,</p>
+    <p>	Thank you for purchasing an oxd site license. You can activate your license by <a href="{{invitation_link}}">registering on the Gluu license management dashboard</a>.</p>
+	<p>Once registered, you can use the license to install oxd on as many servers as needed.</p>
+    <p>
+        Thank you,<br/>
+        Gluu Team
+    </p>
+</div>
+
+{% endblock %}

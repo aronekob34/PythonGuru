@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+  <div class="row oxd-home">
+    <div class="col-md-8">
+      <div class="widget subscribe">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="try-head">
+              <h3 class="text-center">Try oxd for free</h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="try-body">
+              {% block try_oxd %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="widget subscribe info">
+        <div class="row">
+          <div class="col-xs-2">
+            <img src="{% static 'img/bill.png' %}" alt="" class="img-responsive">
+          </div>
+          <div class="col-xs-10">
+            <h5>Billed per installation per day</h5>
+            <p>Each time you install oxd you will need to enter your license. The server's mac address will be registered, and you will be charged $0.33 per day for each day the license is active on the server.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <img src="{% static 'img/money.png' %}" alt="" class="img-responsive">
+          </div>
+          <div class="col-xs-10">
+            <h5>$50 credit for free</h5>
+            <p>Sign up and get $50 to spend over the next 60 days.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <img src="{% static 'img/card-cancel.png' %}" alt="" class="img-responsive">
+          </div>
+          <div class="col-xs-10">
+            <h5>Cancel anytime</h5>
+            <p>Cancel your subscription at any time and billing will stop immediately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

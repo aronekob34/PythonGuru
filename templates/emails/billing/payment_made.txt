@@ -1,0 +1,18 @@
+{% load humanize %}
+
+Hello,
+
+A payment of ${{payment.paid_amount|floatformat:2 | intcomma}} was applied to {{account_name}}’s financial account.
+
+Date: {{date}}
+Previous balance due: ${{payment.paid_amount|floatformat:2 | intcomma}}
+Amount charged: ${{payment.paid_amount|floatformat:2 | intcomma}}
+New balance: $0.00
+Payment method: Credit Card
+Reference ID: {{payment.invoice_id}} 
+
+Primary billing method charged
+
+Thank you,
+
+Gluu
