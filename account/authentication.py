@@ -49,7 +49,7 @@ class GluuOAuth2Backend(BaseOAuth2):
                 'last_name': response.get('family_name', ''),
                 'idp_uuid': response.get('inum', '')}
 
-    def user_data(self, access_token, *args, **kwargs):
+    def user_data(self, access_token, *args, **kwargs,**KeyError):
 
         self.strategy.session_set('gluu_state', self.data['state'])
 
