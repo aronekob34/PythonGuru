@@ -39,6 +39,7 @@ class Command(BaseCommand):
 
                     response = stripe.Charge.create(
                         amount=int(payment.paid_amount * 100),
+                        
                         currency='USD',
                         customer=account.stripe.customer_id,
                         description=constants.CHARGE_DESCIRPTION.format(account.get_name())

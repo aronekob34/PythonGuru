@@ -26,18 +26,18 @@ class Account(models.Model):
 
     address_1 = models.CharField(
         'Address Line 1',
-        max_length=100
+        max_length=1200
     )
 
     address_2 = models.CharField(
         'Address Line 2',
-        max_length=100,
+        max_length=1200,
         blank=True
     )
 
     city = models.CharField(
         'City',
-        max_length=100
+        max_length=1200
     )
 
     state = USStateField(blank=True)
